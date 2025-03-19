@@ -237,8 +237,7 @@
             padding: 15px;
             font-size: 16px;
             font-weight: 500;
-            position: fixed;
-            bottom: 0;
+           
             width: 100%;
             box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.2);
         }
@@ -255,6 +254,47 @@
             background-color: #333;
             transition: background 0.3s ease-in-out;
         }
+        .carousel-inner img {
+            width: 100%;
+            height: 600px;
+          }
+          .cardmain {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            min-height: 200px;
+            box-shadow: 0px 0px 5px rgb(204, 255, 255);
+            border-radius: 10px;
+            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out, background 0.5s ease-in-out;
+        }
+        
+        
+        .cardmain:hover {
+            transform: translateY(-10px)  ;
+            box-shadow: 0px 10px 5px rgb(255, 138, 65) !important;
+            background: linear-gradient(135deg, rgba(201, 255, 255, 0.2), rgba(198, 220, 254, 0.3));
+        }
+        .mouse-effect {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(to right, #81afff, #9f44ff);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: rippleEffect 0.9s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(4);
+                opacity: 0;
+            }
+        }
+        
     </style>
 </head>
 
@@ -265,7 +305,7 @@
         <div class="teimlms">Dashboard</div>
         <div class="user-info">
             {% if request.user.is_authenticated %}
-            Welcome, {{ request.user.username }}
+            Welcome, <span class="text-info">{{ request.user.username }}</span>
             {% else %}
             Welcome, Guest
             {% endif %}
@@ -291,6 +331,73 @@
     <div class="overlay" onclick="toggleSidebar()"></div>
 
 
+
+
+
+
+    <!-- main cantent  -->
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active"></li>
+          <li data-target="#demo" data-slide-to="1"></li>
+          <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://wallpapercave.com/wp/wp3537549.jpg" alt="Los Angeles" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div>   
+          </div>
+          <div class="carousel-item">
+            <img src="https://i0.wp.com/segwitz.com/wp-content/uploads/2021/09/why-ecommerce-need-mobile-apps.jpg" alt="Chicago" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>Chicago</h3>
+              <p>Thank you, Chicago!</p>
+            </div>   
+          </div>
+          <div class="carousel-item">
+            <img src="https://wallpaperaccess.com/full/2593066.jpg" alt="New York" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>New York</h3>
+              <p>We love the Big Apple!</p>
+            </div>   
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+
+      <div class="container">
+        <div class="row p-2" >
+            <div class="col-md-4 col-12 ">
+                <div class="card cardmain">
+                    <div class="card-body"></div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12 ">
+                <div class="card cardmain">
+                    <div class="card-body"></div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12 ">
+                <div class="card cardmain">
+                    <div class="card-body"></div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+     <!-- end main content -->
+
     <footer class="footer">
         <p>© 2025 All Rights Reserved | <span>Coding with Amol</span></p>
     </footer>
@@ -299,6 +406,17 @@
         function toggleSidebar() {
             document.body.classList.toggle("open-sidebar");
         }
+        document.addEventListener('mousemove', function(e) {
+            const ripple = document.createElement('div');
+            ripple.classList.add('mouse-effect');
+            ripple.style.left = `${e.pageX}px`;
+            ripple.style.top = `${e.pageY}px`;
+            document.body.appendChild(ripple);
+    
+            setTimeout(() => {
+                ripple.remove();
+            }, 900);
+        });
     </script>
 
 </body>
